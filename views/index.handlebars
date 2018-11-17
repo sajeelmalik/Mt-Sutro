@@ -1,0 +1,29 @@
+<div class="uk-container uk-animation-fade" id="main">
+  <h1 id="title">Finesse</h1>
+  <p>Save your favorite sale items.</p>
+  <hr>
+
+  <ul class="uk-breadcrumb">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/saved" uk-tooltip="Stay tuned for updates!">My Collection</a></li>
+    <li><a href="/">Refresh Sales!</a></li>
+  </ul>
+
+  <h2 class="uk-animation-slide">Sale Items!</h2>
+
+  <div style="display:flex">
+    <div class="sale-items" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 100">
+      {{#each item}}
+      {{> item/item-block}}
+      {{/each}}
+    </div>
+
+    <div id="notes"></div>
+  </div>
+</div>
+
+<footer scrollspy="cls:uk-animation-slide-bottom-small">
+  <br>
+  <p id="footer-text" class="uk-text-center"><span><a id="github" href="https://github.com/sajeelmalik/Finesse"><i
+          class="fab fa-github"></i> Github </a>|</span> Developed in San Francisco, CA © 2018 Finesse. Sajeel Malik.</p>
+</footer>
