@@ -63,6 +63,7 @@ app.get("/", function (req, res) {
                 var result = {};
 
                 // Add text and href of every link, and save them as properties of the result object
+                $(this).find("div.scroll-boundary");
                 result.name = $(this).find("ul.review__title-artist").children("li").text();
                 result.link = $(this).find("a.review__link").attr("href");
                 result.image = $(this).find("img").attr("src");
@@ -74,21 +75,21 @@ app.get("/", function (req, res) {
             });
 
             // console.log(artists); //check to see if scraping is successful
-            // res.render("index", { item: artists });
+            res.render("index", { item: artists });
 
             // Create a new Artist using the artist JSON 
-            db.Artist.insertMany(artists)
-                // Initial attempt - works perfectly locally 
-                .then(function (dbArtist) {
-                    // Push the added result to our array to develop our JSON - here, I attempted to redirect to /home instead of directly rendering the index as a potential solution to an asynchornicity problem
-                    console.log(dbArtist);
-                    // res.render("index", { item: dbArtist });
-                    res.redirect("/home")
-                })
-                .catch(function (err) {
-                    // send error to client
-                    return res.json(err);
-                });
+            // db.Artist.insertMany(artists)
+            //     // Initial attempt - works perfectly locally 
+            //     .then(function (dbArtist) {
+            //         // Push the added result to our array to develop our JSON - here, I attempted to redirect to /home instead of directly rendering the index as a potential solution to an asynchornicity problem
+            //         console.log(dbArtist);
+            //         // res.render("index", { item: dbArtist });
+            //         res.redirect("/home")
+            //     })
+            //     .catch(function (err) {
+            //         // send error to client
+            //         return res.json(err);
+            //     });
 
         })
         //====Debugging attempt 4 - add a catch to the axios.get
@@ -106,6 +107,7 @@ app.get("/home", function (req, res) {
     db.Artist.find({})
         .then(function (dbArtist) {
             // If we were able to successfully find Artists, send them back to the client
+            // res.send("DOG")
             res.render("index", { item: dbArtist });
         })
         .catch(function (err) {

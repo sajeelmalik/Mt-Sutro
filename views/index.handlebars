@@ -1,20 +1,18 @@
 <div class="uk-container uk-animation-fade" id="main">
   <h1 id="title">Mt. Sutro Music Company</h1>
 
-  <ul class="uk-breadcrumb">
-    <li><a href="/home">AFFILIATES</a></li>
-    <li><a href="#" uk-tooltip="Stay tuned for updates!">BOOKING</a></li>
-    <li><a href="#">NON-PROFIT</a></li>
-    <li><a href="#">DESIGN</a></li>
-    <li><a href="#">JOBS</a></li>
-  </ul>
+  <div id="nav">
+    <a href="/home" class="nav-links">AFFILIATES</a>
+    <a href="#" class="nav-links" uk-tooltip="Stay tuned for updates!">BOOKING</a>
+    <a href="#" class="nav-links">NON-PROFIT</a>
+    <a href="#" class="nav-links">DESIGN</a>
+    <a href="#" class="nav-links">JOBS</a>
+  </div>
 
   <hr>
 
-  <h2 class="uk-animation-slide">Sale Items!</h2>
-
-  <div style="display:flex">
-    <div class="sale-items" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 100">
+  <div>
+    <div class="artist-items" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 50">
       {{#each item}}
       {{> item/item-block}}
       {{/each}}
