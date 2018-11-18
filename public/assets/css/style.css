@@ -2,7 +2,7 @@
 
 #title{
     text-align: center;
-    color: rgb(153, 33, 53);
+    color: rgb(167, 23, 47);
 }
 
 #nav{
@@ -13,7 +13,8 @@
 }
 
 .nav-links{
-    color: rgb(153, 33, 53);
+    color: rgb(167, 23, 47);
+    transition: 0.1s ease-in-out;   
 }
 
 .artist-items{
@@ -35,14 +36,61 @@
 
 .artist-name-overlay{
     position: absolute;
-    width: 100%;
-    height: 100%;
+    left:0px;
+    top: 0px;
+    max-width: 200px;
+    max-height: 200px;
     opacity: 0;
     background-color: white;
-    color: transparent;
+    color: blue;
     transition: 0.2s ease-in-out;
 }
 
-.artist-image:hover{
+.artist-name-overlay:hover{
     opacity: 0.4;
 }
+
+/* Animations */
+
+/* Sweep To Top */
+.hvr-sweep-to-top {
+    display: inline-block;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+  }
+  .hvr-sweep-to-top:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(167, 23, 47);
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-sweep-to-top:hover, .hvr-sweep-to-top:focus, .hvr-sweep-to-top:active {
+    color: white;
+    text-decoration: none;
+  }
+  .hvr-sweep-to-top:hover:before, .hvr-sweep-to-top:focus:before, .hvr-sweep-to-top:active:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+  }
