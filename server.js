@@ -29,20 +29,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
+
+// Require all models
+var db = require("./models");
+
 // Connect to the Mongo DB
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtsutrohomepage";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtSutro";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 // Added useNewUrlParser based on current mongo version (4.0.2)
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-
-// Require all models
-var db = require("./models");
 
 // Routes
 
@@ -66,17 +67,21 @@ app.get("/", function (req, res) {
                 result.link = $(this).find("a.review__link").attr("href");
                 result.image = $(this).find("img").attr("src");
 
-                artists.push(result);
+                if (artists.length < 49){
+                     artists.push(result);
+                }
+               
             });
 
-            // return res.send("hello"); //temporary debugging test
+            // console.log(artists); //check to see if scraping is successful
+            // res.render("index", { item: artists });
 
-            // Create a new Artist using the `result` object built from scraping
+            // Create a new Artist using the artist JSON 
             db.Artist.insertMany(artists)
                 // Initial attempt - works perfectly locally 
                 .then(function (dbArtist) {
                     // Push the added result to our array to develop our JSON - here, I attempted to redirect to /home instead of directly rendering the index as a potential solution to an asynchornicity problem
-
+                    console.log(dbArtist);
                     // res.render("index", { item: dbArtist });
                     res.redirect("/home")
                 })
@@ -111,7 +116,7 @@ app.get("/home", function (req, res) {
 
 
 // Route for getting all Artists from the db
-app.get("/Artists", function (req, res) {
+app.get("/artists", function (req, res) {
     // Grab every document in the Artists collection
     db.Artist.find({})
         .then(function (dbArtist) {

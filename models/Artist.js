@@ -16,11 +16,12 @@ var ArtistSchema = new Schema({
   // `link` is required and of type String. Can make unique:true ONLY if the scraping is done independently, since otherwise the root route will always throw an erro
   link: {
     type: String,
-    required: true
+    // required: true
   },
   // `image` is required and of type String
   image: {
     type: String,
+    required: true
     // required: true
   },
 });
