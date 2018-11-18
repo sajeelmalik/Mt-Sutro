@@ -33,7 +33,7 @@ app.use(express.static("public"));
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtsutrohomepage";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -56,60 +56,34 @@ app.get("/", function (req, res) {
 
             var artists = [];
 
-            // Iterate through each class of "product item" on the page to scrape the specific sales
+            // Iterate through each class of "review" on pitchfork to get the top upcoming artists
             $("div.review").each(function (i, element) {
                 // Save an empty result object
                 var result = {};
 
                 // Add text and href of every link, and save them as properties of the result object
-                result.title = $(this).find("h3.item-heading").children("a").text();
-                result.link = home + $(this).find("div.image-container").children("a").attr("href");
-                result.price = $(this).find("strong.item-price").children("span.sale").text();
-                if ($(this).find(".item-image").attr("src")) {
-                    result.image = $(this).find(".item-image").attr("src");
-                }
-                else {
-                    result.image = $(this).find(".item-image").attr("data-src");
-                }
+                result.name = $(this).find("ul.review__title-artist").children("li").text();
+                result.link = $(this).find("a.review__link").attr("href");
+                result.image = $(this).find("img").attr("src");
 
                 artists.push(result);
             });
 
             // return res.send("hello"); //temporary debugging test
 
-            // Create a new Sale using the `result` object built from scraping
-            db.Sale.insertMany(artists)
+            // Create a new Artist using the `result` object built from scraping
+            db.Artist.insertMany(artists)
                 // Initial attempt - works perfectly locally 
-                .then(function (dbSale) {
+                .then(function (dbArtist) {
                     // Push the added result to our array to develop our JSON - here, I attempted to redirect to /home instead of directly rendering the index as a potential solution to an asynchornicity problem
 
-                    // res.render("index", { item: dbSale });
+                    // res.render("index", { item: dbArtist });
                     res.redirect("/home")
                 })
                 .catch(function (err) {
                     // send error to client
                     return res.json(err);
                 });
-
-            //====Debugging attempt 2 - try/catch/finally
-            // try {
-            //     db.Sale.insertMany(artists)
-            // } catch (err) {
-            //     console.log(err)
-            // } finally {
-            //     res.redirect("/home")
-            // }
-
-            //====Debugging attempt 3 - timeout
-            // setTimeout(function(){
-            //     axios.get("/sales")
-            //         // With that done, add the note information to the page
-            //         .then(function (data) {
-            //             res.render("index", { item: data });
-            //         });
-            // }, 5000)
-
-
 
         })
         //====Debugging attempt 4 - add a catch to the axios.get
@@ -121,13 +95,13 @@ app.get("/", function (req, res) {
 
 });
 
-// Route for getting all Sales from the db 
+// Route for getting all Artists from the db 
 app.get("/home", function (req, res) {
-    // Grab every document in the Sales collection
-    db.Sale.find({})
-        .then(function (dbSale) {
-            // If we were able to successfully find Sales, send them back to the client
-            res.render("index", { item: dbSale });
+    // Grab every document in the Artists collection
+    db.Artist.find({})
+        .then(function (dbArtist) {
+            // If we were able to successfully find Artists, send them back to the client
+            res.render("index", { item: dbArtist });
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
@@ -136,13 +110,13 @@ app.get("/home", function (req, res) {
 });
 
 
-// Route for getting all Sales from the db
-app.get("/sales", function (req, res) {
-    // Grab every document in the Sales collection
-    db.Sale.find({})
-        .then(function (dbSale) {
-            // If we were able to successfully find Sales, send them back to the client
-            res.json(dbSale);
+// Route for getting all Artists from the db
+app.get("/Artists", function (req, res) {
+    // Grab every document in the Artists collection
+    db.Artist.find({})
+        .then(function (dbArtist) {
+            // If we were able to successfully find Artists, send them back to the client
+            res.json(dbArtist);
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
@@ -150,49 +124,20 @@ app.get("/sales", function (req, res) {
         });
 });
 
-// Route for grabbing a specific Sale by id, populate it with it's note
-app.get("/sales/:id", function (req, res) {
+// Route for grabbing a specific Artist by id, populate it with it's note
+app.get("/Artists/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    db.Sale.findOne({ _id: req.params.id })
+    db.Artist.findOne({ _id: req.params.id })
         // ..and populate all of the notes associated with it
         .populate("note")
-        .then(function (dbSale) {
-            // If we were able to successfully find an Sale with the given id, send it back to the client
-            res.json(dbSale);
+        .then(function (dbArtist) {
+            // If we were able to successfully find an Artist with the given id, send it back to the client
+            res.json(dbArtist);
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
             res.json(err);
         });
-});
-
-// Route for saving/updating an Sale's associated Note
-app.post("/sales/:id", function (req, res) {
-    // Create a new note and pass the req.body to the entry
-    db.Note.create(req.body)
-        .then(function (dbNote) {
-            // If a Note was created successfully, find one Sale with an `_id` equal to `req.params.id`. Update the Sale to be associated with the new Note
-            // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-            // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-            return db.Sale.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-        })
-        .then(function (dbSale) {
-            // If we were able to successfully update an Sale, send it back to the client
-            res.json(dbSale);
-        })
-        .catch(function (err) {
-            // If an error occurred, send it to the client
-            res.json(err);
-        });
-});
-
-app.get("/saved", function (req, res) {
-    db.Sale.find({ saved: true }).populate("note").then(function (data) {
-        //   console.log(data)
-        res.render("index", { item: data });
-    }).catch(function (err) {
-        res.json(err)
-    })
 });
 
 // Start the server

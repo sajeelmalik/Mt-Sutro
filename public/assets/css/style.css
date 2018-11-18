@@ -1,0 +1,15 @@
+.artist-affiliate{
+    height: 200px;
+    width: 200px;
+}
+
+.artist-name-overlay{
+    opacity: 0;
+    background-color: white;
+    color: transparent;
+    transition: 0.2s ease-in-out;
+}
+
+.artist-name-overlay:hover{
+    opacity: 0.4;
+}
