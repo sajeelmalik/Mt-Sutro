@@ -2,6 +2,7 @@
 // server.js for Mt. Sutro Music Company
 
 // DEPENDENCIES
+// imported mongoose in the case that we need to store the scraped information
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
@@ -35,7 +36,7 @@ var db = require("./models");
 
 // Connect to the Mongo DB
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+// If deployed, use the deployed database. Otherwise use the local mtsutro database
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtSutro";
 
@@ -63,7 +64,6 @@ app.get("/", function (req, res) {
                 var result = {};
 
                 // Add text and href of every link, and save them as properties of the result object
-                $(this).find("div.scroll-boundary");
                 result.name = $(this).find("ul.review__title-artist").children("li").text();
                 result.link = $(this).find("a.review__link").attr("href");
                 result.image = $(this).find("img").attr("src");
@@ -101,7 +101,20 @@ app.get("/", function (req, res) {
 
 });
 
-// Route for getting all Artists from the db 
+app.get("/booking", function(req, res){
+    res.render("index");
+});
+
+app.get("/nonprofit", function(req, res){
+    res.render("nonprofit");
+});
+
+app.get("/jobs", function(req, res){
+    res.render("index");
+});
+
+
+// Route for getting all Artists from the db - Currently unused
 app.get("/home", function (req, res) {
     // Grab every document in the Artists collection
     db.Artist.find({})
@@ -117,7 +130,7 @@ app.get("/home", function (req, res) {
 });
 
 
-// Route for getting all Artists from the db
+// Route for getting all Artists from the db - currently unused
 app.get("/artists", function (req, res) {
     // Grab every document in the Artists collection
     db.Artist.find({})
