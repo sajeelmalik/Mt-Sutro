@@ -94,7 +94,6 @@ app.get("/", function (req, res) {
             //     });
 
         })
-        //====Debugging attempt 4 - add a catch to the axios.get
         .catch(function (err) {
             // send error to client
             return res.json(err);
@@ -104,7 +103,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/booking", function(req, res){
-    res.render("index");
+    res.render("booking");
 });
 
 app.get("/nonprofit", function(req, res){
@@ -112,7 +111,7 @@ app.get("/nonprofit", function(req, res){
 });
 
 app.get("/jobs", function(req, res){
-    res.render("index");
+    res.render("jobs");
 });
 
 
@@ -132,35 +131,19 @@ app.get("/home", function (req, res) {
 });
 
 
-// Route for getting all Artists from the db - currently unused
-app.get("/artists", function (req, res) {
-    // Grab every document in the Artists collection
-    db.Artist.find({})
-        .then(function (dbArtist) {
-            // If we were able to successfully find Artists, send them back to the client
-            res.json(dbArtist);
-        })
-        .catch(function (err) {
-            // If an error occurred, send it to the client
-            res.json(err);
-        });
-});
-
-// Route for grabbing a specific Artist by id, populate it with it's note
-app.get("/Artists/:id", function (req, res) {
-    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    db.Artist.findOne({ _id: req.params.id })
-        // ..and populate all of the notes associated with it
-        .populate("note")
-        .then(function (dbArtist) {
-            // If we were able to successfully find an Artist with the given id, send it back to the client
-            res.json(dbArtist);
-        })
-        .catch(function (err) {
-            // If an error occurred, send it to the client
-            res.json(err);
-        });
-});
+// Route for getting all Artists in a json - currently unused
+// app.get("/artists", function (req, res) {
+//     // Grab every document in the Artists collection
+//     db.Artist.find({})
+//         .then(function (dbArtist) {
+//             // If we were able to successfully find Artists, send them back to the client
+//             res.json(dbArtist);
+//         })
+//         .catch(function (err) {
+//             // If an error occurred, send it to the client
+//             res.json(err);
+//         });
+// });
 
 // Start the server
 app.listen(PORT, function () {

@@ -1,5 +1,8 @@
-/* Tempo Red #741D2B 
-Light Gra#E8E9EB
+/* 
+Mt. Sutro Red #A7172F;
+Tempo Red Main #741D2B 
+Tempo Red Secondary #FF4025
+Light Gray #E8E9EB
 Dark Gray #363636
 */
 
@@ -52,8 +55,22 @@ body{
     transition: 0.1s ease-in-out;   
 }
 
-#main{
+.main{
     margin-top: 2%;
+    min-height: 60vh;
+}
+
+.section-header{
+    display: flex;
+    height: 200px;
+    background-color: rgba(167, 23, 47, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.section-title{
+    color: white;
+    font-family: "MissionGothic";
 }
 
 .artist-items{
@@ -154,7 +171,7 @@ footer{
 
 #footer-text{
     margin-top: 5%;
-    color: white;
+    color: rgb(252, 220, 220);
 }
 
 /* Animations */
