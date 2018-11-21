@@ -1,4 +1,7 @@
-/* Tempo Red #741D2B */
+/* Tempo Red #741D2B 
+Light Gra#E8E9EB
+Dark Gray #363636
+*/
 
 @font-face {
     font-family: "MissionGothic";
@@ -10,7 +13,10 @@
     }
 
 body{
-    font-family: "MissionGothic"; 
+    font-family: "MissionGothic";   
+    background-color: #FBFEF9;
+    /* background-color: #E8E9EB; Light Gray */
+    /* background-color: #E0DFD5; Gray */
 }
 
 #loading{
@@ -27,7 +33,7 @@ body{
 
 #title{
     font-family: "MissionGothic"; 
-    margin-top: 2%;
+    margin-top: 4%;
     text-align: center;
     color: rgb(167, 23, 47);
     font-weight: bold;
@@ -46,6 +52,10 @@ body{
     transition: 0.1s ease-in-out;   
 }
 
+#main{
+    margin-top: 2%;
+}
+
 .artist-items{
     display: flex;
     justify-content: space-evenly;
@@ -54,8 +64,8 @@ body{
 
 .artist-affiliate{
     position: relative;
-    height: 200px;
-    width: 200px;
+    height: auto;
+    width: calc(100%/7);
 }
 
 .artist-image{
@@ -100,8 +110,29 @@ body{
     transform: translateY(0); 
 }
 
-#github{
+#to-top{
+    /* margin: 0; */
+    margin-top: 3%;
     color: rgb(167, 23, 47);
+    text-align: center;
+}
+
+#to-top:hover{
+    text-decoration: none;    
+}
+
+.fa-mountain{
+    color: rgb(167, 23, 47);
+    font-size: 30px;
+}
+
+#peak{
+    margin: 5px;
+    font-size: 14px;
+}
+
+#github{
+    color: white;
 }
 
 #github:hover{
@@ -109,8 +140,21 @@ body{
     /* transform: scale(2.0); */
 }
 
+footer{
+    margin-top: 4%;
+    background-color: rgb(167, 23, 47);
+    height: 40vh;
+}
+
+#footer-elements{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
 #footer-text{
-    color: rgb(167, 23, 47);
+    margin-top: 5%;
+    color: white;
 }
 
 /* Animations */
@@ -156,4 +200,57 @@ body{
   .hvr-sweep-to-top:hover:before, .hvr-sweep-to-top:focus:before, .hvr-sweep-to-top:active:before {
     -webkit-transform: scaleY(1);
     transform: scaleY(1);
+  }
+
+  /* Float */
+.hvr-float {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-float:hover, .hvr-float:focus, .hvr-float:active {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 768px) {
+    .artist-affiliate{
+        width: calc(100%/6);
+        height: auto;
+    }
+  }
+
+@media only screen and (max-width: 426px) {
+
+    #nav{
+        width: 80%;
+    }
+    .nav-links{
+        font-size: .9em;
+    }
+    .artist-affiliate{
+        width: calc(100%/4);
+        height: auto;
+    }
+  }
+  
+  @media only screen and (max-width: 376px) {
+    #title{
+        font-size: 1.7em;
+    }
+    .nav-links{
+        font-size: .6em;
+    }
+    
   }

@@ -75,6 +75,8 @@ app.get("/", function (req, res) {
             });
 
             // console.log(artists); //check to see if scraping is successful
+            var artists = artists.concat(...artists); 
+            console.log(artists.length)
             res.render("index", { item: artists });
 
             // Create a new Artist using the artist JSON 
