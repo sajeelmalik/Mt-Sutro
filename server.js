@@ -54,8 +54,8 @@ app.get("/", function (req, res) {
     axios.get("https://pitchfork.com/reviews/albums/")
         .then(function (response) {
             // Then, we load that into cheerio and save it to $ for a shorthand selector
+            const home = "https://pitchfork.com";
             var $ = cheerio.load(response.data);
-
             var artists = [];
 
             // Iterate through each class of "review" on pitchfork to get the top upcoming artists
@@ -65,7 +65,7 @@ app.get("/", function (req, res) {
 
                 // Add text and href of every link, and save them as properties of the result object
                 result.name = $(this).find("ul.review__title-artist").children("li").text();
-                result.link = $(this).find("a.review__link").attr("href");
+                result.link = home + $(this).find("a.review__link").attr("href");
                 result.image = $(this).find("img").attr("src");
 
                 if (artists.length < 49){
@@ -75,7 +75,7 @@ app.get("/", function (req, res) {
             });
 
             // console.log(artists); //check to see if scraping is successful
-            var artists = artists.concat(...artists); 
+            var artists = artists.concat(artists).concat(artists); 
             console.log(artists.length)
             res.render("index", { item: artists });
 
@@ -108,6 +108,10 @@ app.get("/booking", function(req, res){
 
 app.get("/nonprofit", function(req, res){
     res.render("nonprofit");
+});
+
+app.get("/design", function(req, res){
+    res.render("design");
 });
 
 app.get("/jobs", function(req, res){
