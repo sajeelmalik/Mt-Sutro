@@ -167,11 +167,39 @@ footer{
     display: flex;
     justify-content: space-between;
     color: white;
+    align-content: center;
+    flex-direction: column;
+}
+
+.socials{
+    display: flex;
+    list-style: none;
+    margin: 20px auto;   
+    justify-content: space-between;
+    width: 500px;
+    font-size:  24px;
+}
+
+.fab{
+    /* border: 1px solid white;
+    padding: 5px;
+    border-radius: 20px; */
+}
+
+.fab:hover{
+    
 }
 
 #footer-text{
-    margin-top: 5%;
+    /* margin-top: 5%; */
     color: rgb(252, 220, 220);
+}
+
+#bottom-title{
+    color: white;
+    margin: 0;
+    font-weight: bold;
+    font-size: 48px;
 }
 
 /* Animations */
