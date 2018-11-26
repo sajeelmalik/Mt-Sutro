@@ -160,6 +160,7 @@ body{
 footer{
     margin-top: 4%;
     background-color: rgb(167, 23, 47);
+    /* background-color: #363636; */
     height: 40vh;
 }
 
@@ -167,32 +168,43 @@ footer{
     display: flex;
     justify-content: space-between;
     color: white;
+    text-align: center;
     align-content: center;
     flex-direction: column;
+    height: 100%;
+    width: 500px;
 }
+
+/* #footer-elements > * {
+    margin: 0;
+} */
 
 .socials{
     display: flex;
     list-style: none;
-    margin: 20px auto;   
+    margin: 0 auto;
+    padding: 0;
     justify-content: space-between;
-    width: 500px;
+    width: 300px;
     font-size:  24px;
 }
 
 .fab{
+    color: white;
+    transition: 0.15s ease-in-out;
     /* border: 1px solid white;
     padding: 5px;
     border-radius: 20px; */
 }
 
 .fab:hover{
-    
+    color:  rgb(188, 197, 214);
 }
 
-#footer-text{
+.footer-text{
     /* margin-top: 5%; */
     color: rgb(252, 220, 220);
+    margin: 0;
 }
 
 #bottom-title{
