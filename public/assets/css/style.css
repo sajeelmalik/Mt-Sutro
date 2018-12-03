@@ -112,7 +112,7 @@ body{
 
 .artist-affiliate:hover .artist-name-overlay{
     visibility: visible;
-    opacity: 1;
+    opacity: 1;     
     text-decoration: none;
 }
 
