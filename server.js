@@ -87,7 +87,7 @@ app.get("/", function (req, res) {
             // var affiliates = artists.concat(artists).concat(artists); 
             // console.log(artists.length)
 
-            affiliates = artists.concat(albums.slice(0, artists.length));
+            affiliates = artists.concat(albums.slice(12));
 
             res.render("index", { item: affiliates });
 
