@@ -34,6 +34,9 @@ app.use(express.static("public"));
 // Require all models
 var db = require("./models");
 
+// Require all existing user albums 
+var albums = require("./public/assets/js/albums.json");
+
 // Connect to the Mongo DB
 
 // If deployed, use the deployed database. Otherwise use the local mtsutro database
@@ -45,6 +48,9 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtSutro";
 // Added useNewUrlParser based on current mongo version (4.0.2)
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+//set up affiliate array
+var affiliates = [];
 
 // Routes
 
@@ -68,16 +74,22 @@ app.get("/", function (req, res) {
                 result.link = home + $(this).find("a.review__link").attr("href");
                 result.image = $(this).find("img").attr("src");
 
-                if (artists.length < 49){
-                     artists.push(result);
+                if (artists.length < 49) {
+                    artists.push(result);
+
+                    //adding hard-coded albums 
+                    artists.push(albums[i]);
                 }
-               
+
             });
 
             // console.log(artists); //check to see if scraping is successful
-            var artists = artists.concat(artists).concat(artists); 
-            console.log(artists.length)
-            res.render("index", { item: artists });
+            // var affiliates = artists.concat(artists).concat(artists); 
+            // console.log(artists.length)
+
+            affiliates = artists.concat(albums.slice(0, artists.length));
+
+            res.render("index", { item: affiliates });
 
             // Create a new Artist using the artist JSON 
             // db.Artist.insertMany(artists)
@@ -102,19 +114,19 @@ app.get("/", function (req, res) {
 
 });
 
-app.get("/booking", function(req, res){
+app.get("/booking", function (req, res) {
     res.render("booking");
 });
 
-app.get("/nonprofit", function(req, res){
+app.get("/nonprofit", function (req, res) {
     res.render("nonprofit");
 });
 
-app.get("/design", function(req, res){
+app.get("/design", function (req, res) {
     res.render("design");
 });
 
-app.get("/jobs", function(req, res){
+app.get("/jobs", function (req, res) {
     res.render("jobs");
 });
 

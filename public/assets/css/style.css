@@ -107,6 +107,7 @@ body{
     align-items: center;
     justify-content: center;
     z-index: 100;
+    /* cursor: cell; */
     transition: 0.2s ease;
 }
 
@@ -215,6 +216,7 @@ footer{
 
 .socials > li:hover{
     background-color: white;
+    box-shadow: 0px 1px 1px 2px rgba(0, 0, 0, 0.2);  
 }
 
 .socials > li:hover .fab, .socials > li:hover .fas{
@@ -320,6 +322,18 @@ footer{
         width: calc(100%/4);
         height: auto;
     }
+    #to-top{
+        margin-top: 6%;
+    }
+    #footer-elements{
+        width: auto;
+    }
+    footer{
+        height: 50vh;
+    }
+    /* .footer-text{
+        width: 90%;
+    }  */
   }
   
   @media only screen and (max-width: 376px) {
@@ -328,6 +342,9 @@ footer{
     }
     .nav-links{
         font-size: .6em;
+    }
+    footer{
+        height: 55vh;
     }
     
   }
