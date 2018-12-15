@@ -1,7 +1,8 @@
 // Sajeel Malik
 // server.js for Mt. Sutro Music Company
 
-// DEPENDENCIES
+// ########## DEPENDENCIES ##########
+
 // imported mongoose in the case that we need to store the scraped information
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -31,15 +32,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-// Require all models
+// ########## MODELS ##########
 var db = require("./models");
 
 // Require all existing user albums 
 var albums = require("./public/assets/js/albums.json");
 
-// Connect to the Mongo DB
-
-// If deployed, use the deployed database. Otherwise use the local mtsutro database
+// Connect to the Mongo DB. If deployed, use the deployed database. Otherwise use the local mtsutro database. Currently not storing.
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mtSutro";
 
@@ -52,7 +51,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 //set up affiliate array
 var affiliates = [];
 
-// Routes
+// ########## ROUTES ##########
 
 // GET route for scraping
 app.get("/", function (req, res) {
@@ -84,8 +83,6 @@ app.get("/", function (req, res) {
             });
 
             // console.log(artists); //check to see if scraping is successful
-            // var affiliates = artists.concat(artists).concat(artists); 
-            // console.log(artists.length)
 
             affiliates = artists.concat(albums.slice(12));
 

@@ -26,6 +26,8 @@ body{
     background-color: rgb(167, 23, 47);
     height: 100vh;
     width: 100vw;
+    font-family: "MissionGothic"; 
+    font-weight: bold;
 }
 
 #load-title{
