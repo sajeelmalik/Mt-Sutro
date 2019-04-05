@@ -58,4 +58,4 @@ The Mt. Sutro Music Company is a music marketing and management non-profit that 
 ## Core Developers
 
 * **Sajeel Malik** - Lead Software Engineer - [GitHub](https://github.com/sajeelmalik)
-* **Kevin Macaraeg** - Lead Design and Founder - [GitHub](https://github.com/everysf)
+* **Kevin Macaraeg** - Lead Design and Founder - [Website](https://everysf.com)
